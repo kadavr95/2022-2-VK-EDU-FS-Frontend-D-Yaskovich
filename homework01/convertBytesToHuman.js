@@ -13,5 +13,17 @@
  */
 
 export default function convertBytesToHuman(bytes) {
-    // your solution goes here
+    let prefixes = ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"]
+    let index = 0
+    if (!Number.isInteger(bytes) || bytes < 0) {
+        return false
+    }
+    while (index < prefixes.length - 1 && bytes / 1024 ** index >= 1024) {
+        index += 1
+    }
+    if (bytes % 1024 ** index === 0) {
+        return (Math.round(bytes / 1024 ** index, 2) + ' ' + prefixes[index])
+    } else {
+        return ((bytes / 1024 ** index).toFixed(2) + ' ' + prefixes[index])
+    }
 }
